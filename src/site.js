@@ -13,17 +13,32 @@
   }
   const toc = document.querySelector(".contents");
   const sections = document.querySelectorAll(".case-section[id]");
-  if (toc && "IntersectionObserver" in window) {
-    const observer = new IntersectionObserver(entries => {
-      for (const entry of entries) if (entry.isIntersecting) {
-        toc.querySelectorAll("a").forEach(a => {
-          const active = a.getAttribute("href") === "#" + entry.target.id;
-          a.classList.toggle("is-active", active);
-          if (active) a.setAttribute("aria-current", "location"); else a.removeAttribute("aria-current");
-        });
-      }
-    }, { rootMargin: "-16% 0px -65% 0px", threshold: 0 });
-    sections.forEach(s => observer.observe(s));
+  if (toc && sections.length) {
+    const links = [...toc.querySelectorAll("a")];
+    let scheduled = false;
+    function updateContents() {
+      scheduled = false;
+      const header = document.querySelector(".site-header");
+      const tocStyle = getComputedStyle(toc);
+      const stickyOffset = (header ? header.getBoundingClientRect().height : 0) +
+        (tocStyle.position === "sticky" && tocStyle.display === "flex" ? toc.getBoundingClientRect().height : 0) + 24;
+      const anchorOffset = (parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop) || 0) +
+        (parseFloat(getComputedStyle(sections[0]).scrollMarginTop) || 0) + 1;
+      const readingLine = Math.max(stickyOffset, anchorOffset);
+      const current = [...sections].find(s => s.getBoundingClientRect().bottom > readingLine) || sections[sections.length - 1];
+      links.forEach(a => {
+        const active = a.getAttribute("href") === "#" + current.id;
+        a.classList.toggle("is-active", active);
+        if (active) a.setAttribute("aria-current", "location"); else a.removeAttribute("aria-current");
+      });
+    }
+    function scheduleContents() {
+      if (!scheduled) { scheduled = true; requestAnimationFrame(updateContents); }
+    }
+    window.addEventListener("scroll", scheduleContents, { passive: true });
+    window.addEventListener("resize", scheduleContents);
+    document.addEventListener("load", scheduleContents, true);
+    scheduleContents();
   }
   const dialog = document.querySelector(".lightbox");
   if (!dialog || typeof dialog.showModal !== "function") return;
@@ -71,4 +86,3 @@
     if (e.key === "ArrowLeft") { e.preventDefault(); move(-1); }
   });
 })();
-
