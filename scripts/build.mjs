@@ -25,7 +25,7 @@ const header = '<header class="site-header"><div class="header-inner container">
 '<nav class="site-nav" id="navigation" aria-label="Основная навигация"><a href="index.html#work">Работы</a><a href="index.html#about">Обо мне</a><a href="index.html#contact">Контакты</a></nav>' +
 '<div class="header-actions"><a class="btn outline pdf-link" href="assets/karina-lapenko.pdf" download aria-label="Скачать резюме в PDF">' + icon("pdf") + '<span class="btn-label">Резюме PDF</span></a>' +
 '<button class="btn outline circle menu-toggle" type="button" aria-label="Открыть навигацию" aria-controls="navigation" aria-expanded="false">' + icon("menu") + '</button></div></div></header>';
-const contact = '<section class="contact-band" id="contact" aria-labelledby="contact-title"><div class="contact-inner container"><div><h2 id="contact-title">Давайте <span class="accent">познакомимся!</span></h2><p>Буду рада обсудить стажировку и рассказать о себе.</p></div><div class="contact-actions"><a class="btn" href="https://t.me/Dhelprat" target="_blank" rel="noopener noreferrer">' + icon("send") + 'Написать в Telegram</a><a class="btn outline" href="mailto:indoorbox@yandex.ru">' + icon("mail") + 'Написать на почту</a></div></div></section>';
+const contact = '<section class="contact-band" id="contact" aria-labelledby="contact-title"><div class="contact-inner container"><div><h2 id="contact-title">Давайте <span class="accent">познакомимся!</span></h2><p class="contact-copy"><span class="contact-line">Буду рада обсудить стажировку</span> <span class="contact-line">и рассказать о себе.</span></p></div><div class="contact-actions"><a class="btn" href="https://t.me/Dhelprat" target="_blank" rel="noopener noreferrer">' + icon("send") + 'Написать в Telegram</a><a class="btn outline" href="mailto:indoorbox@yandex.ru">' + icon("mail") + 'Написать на почту</a></div></div></section>';
 const footer = '<footer class="site-footer"><div class="footer-inner container"><p>Карина Лапенко · 2026</p><div class="footer-links"><a class="text-link" href="assets/karina-lapenko.pdf" download>Резюме PDF ' + arrow + '</a><a class="text-link" href="https://github.com/Dhelprat" target="_blank" rel="noopener noreferrer">GitHub ' + arrow + '</a></div></div></footer>';
 function picture(key, width, height, alt, lazy = true) {
   return '<picture><source type="image/webp" srcset="assets/' + key + '-480.webp 480w, assets/' + key + '-960.webp 960w, assets/' + key + '-1440.webp ' + Math.min(width, 1440) + 'w" sizes="(max-width:760px) calc(100vw - 72px), (max-width:1100px) 60vw, 770px"><img src="assets/' + key + '.png" alt="' + escape(alt) + '" width="' + width + '" height="' + height + '" loading="' + (lazy ? "lazy" : "eager") + '" decoding="async"></picture>';
@@ -40,11 +40,21 @@ const gallery = '<div class="screens-gallery">' + featured.map(renderScreen).joi
   '<details class="more-screens"><summary class="btn outline">Ещё ' + remaining.length + ' экранов <span aria-hidden="true">⌄</span></summary><div class="screens-gallery">' + remaining.map(renderScreen).join('\n') + '</div></details>';
 const lightbox = '<dialog class="lightbox" aria-labelledby="lightbox-title"><div class="lightbox-bar"><h2 class="lightbox-title" id="lightbox-title">Экран Takely</h2><div class="lightbox-tools"><button class="btn outline circle" data-prev aria-label="Предыдущий экран">' + icon("back") + '</button><button class="btn outline circle" data-next aria-label="Следующий экран">' + arrow + '</button><button class="btn outline circle" data-zoom aria-label="Показать экран в масштабе 1:1" aria-pressed="false">' + icon("zoom") + '</button><button class="btn outline circle" data-close aria-label="Закрыть просмотр">' + icon("close") + '</button></div></div><div class="lightbox-stage" tabindex="0" aria-label="Область просмотра макета"><img class="lightbox-image" alt=""></div><div class="lightbox-bottom"><span>Можно увеличить экран и рассмотреть детали.</span><a data-download download>Скачать исходный PNG</a></div></dialog>';
 const replacements = { HEADER: header, CONTACT: contact, FOOTER: footer, SYMBOLS: symbols, PROJECTS: cards, ARROW: arrow, BACK: icon("back"), EXTERNAL: icon("external"), SCREEN_GALLERY: gallery, LIGHTBOX: lightbox, SITE_URL: site.url, FIGMA: site.figma };
+// Protect short Russian words and paragraph endings without changing HTML attributes.
+function typesetText(html) {
+  return html.replace(/>([^<>]+)</g, (match, text) => {
+    if (!/[А-Яа-яЁё]/.test(text)) return match;
+    let value = text.replace(/(^|[\s])([АаВвИиКкОоСсУуЯя]|[Дд]о|[Зз]а|[Ии]з|[Нн]а|[Нн]е|[Нн]и|[Оо]т|[Пп]о) +(?=\S)/g, "$1$2\u00a0");
+    const tail = value.match(/(\S+) +(\S+)(\s*)$/);
+    if (tail && (tail[1] + tail[2]).length <= 18) value = value.slice(0, tail.index) + tail[1] + "\u00a0" + tail[2] + tail[3];
+    return ">" + value + "<";
+  });
+}
 for (const filename of ["index.html", "takely.html"]) {
   let html = fs.readFileSync(path.join(src, filename), "utf8");
   for (const [key, value] of Object.entries(replacements)) html = html.replaceAll("@@" + key + "@@", value);
   if (/@@[A-Z_]+@@/.test(html)) throw new Error("Unresolved template token in " + filename);
-  fs.writeFileSync(path.join(dist, filename), html);
+  fs.writeFileSync(path.join(dist, filename), typesetText(html));
 }
 for (const filename of ["styles.css", "site.js"]) fs.copyFileSync(path.join(src, filename), path.join(dist, filename));
 fs.cpSync(path.join(root, "assets"), path.join(dist, "assets"), { recursive: true });
