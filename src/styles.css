@@ -16,3 +16,6 @@
 @media print{.site-header,.site-footer,.contact-band,.contents,.lightbox,.case-actions,.hero-actions,.figure-note span:last-child{display:none!important}body{font-size:11pt;background:#fff}.container{width:100%}.case-layout{display:block}.case-section{break-inside:avoid}.image-link{max-width:100%;box-shadow:none}a{color:inherit}.hero,.about-intro{grid-template-columns:1fr 1fr}.section{padding-block:20pt}}
 
 .more-screens{margin-top:24px}.more-screens>summary{cursor:pointer;list-style:none}.more-screens>summary::-webkit-details-marker{display:none}.more-screens[open]>summary{margin-bottom:24px}.more-screens>summary span{transition:transform .15s}.more-screens[open]>summary span{transform:rotate(180deg)}
+
+/* Keep short last lines and function words attached across responsive layouts. */
+p,li,dd,figcaption{text-wrap:pretty}h1,h2,h3{text-wrap:balance}.contact-line{display:block;text-wrap:balance}
