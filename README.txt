@@ -22,7 +22,7 @@ typst compile --font-path fonts karina-lapenko.typ karina-lapenko.pdf
 Затем скопировать PDF в assets/karina-lapenko.pdf и выполнить node scripts/build.mjs из корня проекта.
 
 Добавить кейс: скопировать запись в data/projects.json и создать HTML-страницу в src/. Шаблон сборки уже добавляет общий контактный блок и навигацию.
-Takely: четыре основных экрана видны сразу; остальные раскрываются кнопкой «Ещё 7 экранов». Все макеты доступны через увеличение и Figma.
+Takely: четыре основных изображения видны сразу, включая исходный UI-kit; остальные раскрываются кнопкой «Ещё 3 экрана». Все изображения экспортированы из авторской версии Takely-main без правок. Файл и ID исходных фреймов записаны в data/screens.json. Все макеты доступны через увеличение и Figma.
 
 Откат через Git (без удаления истории):
 git log --oneline
@@ -30,7 +30,7 @@ git revert <SHA_коммита>
 git push origin main
 После успешной публикации этой версии проверить адрес сайта. Предыдущая история остаётся доступной в репозитории.
 
-Исходники дизайна Takely: https://www.figma.com/design/YMfmZlipLMzIXSKBBBclwR/Takely--Copy-?node-id=6078-2670
+Исходники дизайна Takely: https://www.figma.com/design/Ik6EGnZS2zdTvqG2asdH7E/Takely-main?node-id=0-1&t=ZLAwKgWL3DVEkJoS-1
 
 Основной адрес сайта: https://dhelprat.github.io/portfolio/
 Репозиторий: https://github.com/Dhelprat/portfolio
