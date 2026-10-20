@@ -210,7 +210,9 @@ window.guidedReady = (async () => {
  phone.width = timeline.presentation.width * D; phone.height = timeline.presentation.height * D;
  context.setTransform(D, 0, 0, D, 0, 0); phoneContext.setTransform(D, 0, 0, D, 0, 0);
  window.guidedDuration = timeline.duration / timeline.playbackRate;
- await Promise.all(['originals/catalog.png', ...timeline.presentation.assets].map(file => loadFrame(file, 'high')));
+ const poster = window.frameElement?.parentElement.querySelector('[data-motion-poster]');
+ const initialPriority = poster && !poster.complete ? 'low' : 'high';
+ await Promise.all(['originals/catalog.png', ...timeline.presentation.assets].map(file => loadFrame(file, initialPriority)));
  prepareDevice(); window.renderGuided(0); ready = true;
  notifyParent('takely:ready'); syncPlayback();
  // Only the first screen blocks playback. Load the rest in journey order, without duplicated pages.
