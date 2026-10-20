@@ -19,7 +19,12 @@
 <meta name="twitter:description" content="Страница проекта продуктового дизайнера (UI/UX) Лапенко Карины.">
 <meta name="twitter:image" content="@@SITE_URL@@/assets/takely-preview-20261020.png">
 <meta name="twitter:image:alt" content="Главный экран страницы проекта Takely">
-<meta name="theme-color" content="#F4DDE6"><link rel="icon" href="assets/favicon.png"><link rel="preload" href="assets/InterVariable.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="styles.css"><script src="site.js" defer></script>
+<meta name="theme-color" content="#F4DDE6"><link rel="icon" href="assets/favicon.png"><!-- takely-preload:start -->
+<link rel="preload" as="image" href="assets/takely-motion/frames/ed57147c488b1b86.webp" fetchpriority="high">
+<link rel="preload" as="image" href="assets/takely-motion/frames/db41a7082f47451e.png" fetchpriority="high">
+<link rel="preload" as="image" href="assets/takely-motion/frames/f1345f28bed974b6.png" fetchpriority="high">
+<!-- takely-preload:end -->
+<link rel="preload" href="assets/InterVariable.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="styles.css"><script src="site.js" defer></script>
 <link rel="stylesheet" href="assets/takely-motion/phone.css"><script src="assets/takely-motion/visibility.js" defer></script>
 <noscript><style>@media(max-width:760px){.site-nav{display:flex}.menu-toggle{display:none}}</style></noscript>
 </head><body>
@@ -44,8 +49,8 @@
 </figure>
 <figure class="takely-motion takely-motion--cover" aria-label="Путь пользователя в мобильной версии Takely">
 <div class="takely-motion-frame" data-takely-motion>
-<img data-motion-poster src="assets/takely-motion/poster.png" width="1272" height="2634" loading="lazy" decoding="async" alt="">
-<iframe src="assets/takely-motion/player.html" width="424" height="878" loading="lazy" title="Путь пользователя Takely на iPhone: каталог, товар, регистрация, корзина, заявка и заказы"></iframe>
+<img data-motion-poster src="assets/takely-motion/poster.webp" width="636" height="1317" loading="eager" fetchpriority="high" decoding="async" alt="">
+<iframe src="assets/takely-motion/player.html?v=fast-20261020" width="424" height="878" loading="eager" title="Путь пользователя Takely на iPhone: каталог, товар, регистрация, корзина, заявка и заказы"></iframe>
 </div>
 <figcaption>Каталог → товар → регистрация → корзина → заявка → заказы.</figcaption>
 </figure>
