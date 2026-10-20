@@ -80,39 +80,29 @@ function paintTouch(t){
 function paintOrderAccordion(state,t,progress){
  const a=timeline.orderAccordion,closed=images['states/orders-collapsed.png'],open=images['states/orders-expanded.png'];
  const opening=state.file.includes('expanded'),p=opening?smooth(progress):1-smooth(progress),y=scrollAt(state,t);
- const leaving=1-smooth(progress/.28),entering=smooth((progress-.28)/.44);
- const closedAlpha=opening?leaving:entering,openAlpha=opening?entering:leaving;
  const delta=a.openBottom-a.closedBottom,footerTop=a.closedBottom-a.footerHeight;
- const slice=(image,sourceY,height,targetY,alpha=1)=>{
-  if(height<=0||alpha<=0)return;
-  context.globalAlpha=alpha;
+ const slice=(image,sourceY,height,targetY)=>{
+  if(height<=0)return;
   context.drawImage(image,0,sourceY*SS,390*SS,height*SS,0,targetY-y,390,height);
  };
  context.save();context.beginPath();context.rect(0,timeline.headerHeight,390,844-timeline.headerHeight);context.clip();
  context.globalAlpha=1;context.fillStyle='#ffffff';context.fillRect(0,timeline.headerHeight,390,844-timeline.headerHeight);
  context.imageSmoothingEnabled=true;
- // The next order follows the changing card height without stretching any text.
+ // Keep every glyph fully opaque and at its native size. Only the card height changes.
  slice(closed,a.closedBottom,closed.height/SS-a.closedBottom,a.closedBottom+delta*p);
  slice(closed,0,a.top,0);
- slice(closed,a.top,a.contentTop-a.top,a.top);
- slice(open,a.top,a.contentTop-a.top,a.top,p);
- // Both native headers share the same price glyph; move it once, without ghosting.
+ slice(p===0?closed:open,a.top,a.contentTop-a.top,a.top);
  const [px,py,pw,ph]=a.priceBox;
- context.globalAlpha=1;context.fillStyle='#ffffff';context.fillRect(270,625-y,90,25);
+ context.fillStyle='#ffffff';context.fillRect(270,625-y,90,25);
  context.drawImage(closed,px*SS,py*SS,pw*SS,ph*SS,px+a.priceShift*p,py-y,pw,ph);
  context.save();context.beginPath();context.rect(0,a.contentTop-y,390,footerTop-a.contentTop+delta*p);context.clip();
- slice(closed,a.contentTop,footerTop-a.contentTop,a.contentTop,closedAlpha);
- slice(open,a.contentTop,footerTop-a.contentTop+delta,a.contentTop,openAlpha);
+ const body=p===0?closed:open;
+ slice(body,a.contentTop,footerTop-a.contentTop+(p===0?0:delta),a.contentTop);
  context.restore();
- // The toggle and the rounded bottom edge move with the card, at native scale.
- slice(closed,footerTop,a.footerHeight,footerTop+delta*p);
- slice(open,footerTop+delta,a.footerHeight,footerTop+delta*p,p);
- const [lx,lw,lh]=a.labelBox,labelY=footerTop+delta*p-y;
- context.globalAlpha=1;context.fillStyle='#ffffff';context.fillRect(lx,labelY,lw,lh);
- for(const [image,sourceY,alpha] of [[closed,footerTop,closedAlpha],[open,footerTop+delta,openAlpha]]){
-  if(alpha<=0)continue;context.globalAlpha=alpha;
-  context.drawImage(image,lx*SS,sourceY*SS,lw*SS,lh*SS,lx,labelY,lw,lh);
- }
+ // The toggle follows the bottom edge; its label changes on the click, without a fade.
+ const expandedLabel=progress===0?!opening:opening;
+ const footer=expandedLabel?open:closed,sourceY=footerTop+(expandedLabel?delta:0);
+ slice(footer,sourceY,a.footerHeight,footerTop+delta*p);
  context.restore();
 }
 window.guidedState=time=>{const outputDuration=timeline.duration/timeline.playbackRate;const elapsed=((time%outputDuration)+outputDuration)%outputDuration;const t=elapsed*timeline.playbackRate;let i=0;timeline.states.forEach((s,n)=>{if(t>=s.at)i=n});const state=timeline.states[i];return{t,elapsed,index:i,page:state.page,file:state.file,scroll:scrollAt(state,t)}};
