@@ -1,0 +1,38 @@
+.takely-motion { margin: 32px 0 48px; scroll-margin-top: 48px; }
+.takely-motion-frame {
+ position: relative;
+ width: min(100%, 424px, calc((100svh - var(--takely-motion-top, 132px) - 32px) * 424 / 878));
+ aspect-ratio: 424 / 878;
+ overflow: hidden;
+ margin: 24px auto 16px;
+ background: transparent;
+}
+.takely-motion-frame iframe,
+.takely-motion-frame > img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; border: 0; background: transparent; }
+.takely-motion-frame > img[hidden] { display: none; }
+.takely-motion figcaption { max-width: 490px; margin-inline: auto; text-align: center; font-size: 14px; line-height: 1.6; color: var(--muted, #625c61); }
+.takely-motion--cover { margin: 32px 0 0; }
+.takely-motion--cover .takely-motion-frame {
+ width: min(75%, 318px, calc((100svh - var(--takely-motion-top, 132px) - 32px) * 318 / 878));
+ margin: 0 auto 16px;
+}
+.case-showcase { margin-top: 32px; scroll-margin-top: 48px; }
+.case-showcase .takely-motion--cover { margin-top: 0; }
+.case-cart-cover { display: none; }
+@media (min-width: 1100px) {
+ .case-showcase {
+  --showcase-height: min(658.5px, calc((100svh - var(--takely-motion-top, 132px) - 32px) * .75));
+  display: grid;
+  /* Tracks follow the cart and phone aspect ratios, so both media have equal height. */
+  grid-template-columns: minmax(0, 1.40625fr) minmax(0, .482915718fr);
+  align-items: start;
+  gap: clamp(32px, 4vw, 64px);
+ }
+ .case-showcase .takely-motion--cover { width: min(100%, calc(var(--showcase-height) * 424 / 878)); justify-self: end; }
+ .case-showcase .takely-motion-frame { width: 100%; }
+ .case-cart-cover { display: block; min-width: 0; width: min(100%, calc(var(--showcase-height) * 1440 / 1024)); justify-self: start; }
+ .case-cart-cover .image-link { width: 100%; aspect-ratio: 1440 / 1024; margin: 0; }
+ .case-cart-cover picture, .case-cart-cover img { width: 100%; height: 100%; }
+ .case-cart-cover img { object-fit: contain; }
+ .case-cart-cover figcaption { margin-top: 16px; text-align: center; color: var(--muted, #625c61); font-size: 14px; line-height: 1.6; }
+}

@@ -5,6 +5,7 @@
 <meta name="description" content="Кейс Takely: от общей идеи заказчика к готовому сервису аренды. MVP, заявка без регистрации, аренда без залога, договор и работа склада. Роль Карины Лапенко.">
 <link rel="canonical" href="@@SITE_URL@@/takely.html"><meta property="og:type" content="article"><meta property="og:title" content="Takely — аренда начинается с понятной заявки"><meta property="og:description" content="Коммерческий кейс продуктового дизайна Карины Лапенко: клиентский путь, условия аренды и работа склада."><meta property="og:image" content="@@SITE_URL@@/assets/takely-original-cart.png"><meta property="og:locale" content="ru_RU">
 <meta name="theme-color" content="#F4DDE6"><link rel="icon" href="assets/favicon.png"><link rel="preload" href="assets/InterVariable.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="styles.css"><script src="site.js" defer></script>
+<link rel="stylesheet" href="assets/takely-motion/phone.css"><script src="assets/takely-motion/visibility.js" defer></script>
 <noscript><style>@media(max-width:760px){.site-nav{display:flex}.menu-toggle{display:none}}</style></noscript>
 </head><body>
 @@SYMBOLS@@
@@ -18,7 +19,22 @@
 <dl class="case-meta"><div><dt>Роль</dt><dd>Продуктовый / UI-дизайнер</dd></div><div><dt>Формат</dt><dd>Коммерческий проект</dd></div><div><dt>Участие</dt><dd>Проектная работа в течение 6 месяцев</dd></div></dl>
 <p class="case-status">Разработка завершена: готовый продукт передан заказчику. Заказчик решил не продолжать работу над продуктом и не запускать его — бизнес-метрик нет.</p>
 <div class="case-actions"><a class="btn" href="@@FIGMA@@" target="_blank" rel="noopener noreferrer">Открыть Figma @@EXTERNAL@@</a><a class="btn outline" href="#screens">Смотреть экраны</a></div>
-<figure class="case-cover"><a class="image-link" href="assets/takely-original-cart.png" data-lightbox data-caption="Корзина — исходная версия Takely" aria-label="Увеличить исходный экран корзины" aria-haspopup="dialog"><picture><source type="image/webp" srcset="assets/takely-original-cart-480.webp 480w, assets/takely-original-cart-960.webp 960w, assets/takely-original-cart-1440.webp 1440w" sizes="(max-width:760px) calc(100vw - 40px), 900px"><img src="assets/takely-original-cart.png" width="1440" height="1024" alt="Исходный экран корзины Takely: состав заказа, даты аренды и итоговая стоимость" fetchpriority="high"></picture></a><figcaption class="figure-note"><span>Мой исходный дизайн Takely</span><span>Нажмите, чтобы рассмотреть детали</span></figcaption></figure>
+<div class="case-showcase" id="mobile-journey">
+
+<figure class="case-cart-cover">
+<a class="image-link" href="assets/takely-original-cart.png" data-lightbox data-caption="Корзина — десктопная версия" aria-label="Увеличить экран корзины" aria-haspopup="dialog">
+<picture><source type="image/webp" srcset="assets/takely-original-cart-480.webp 480w, assets/takely-original-cart-960.webp 960w, assets/takely-original-cart-1440.webp 1440w" sizes="(min-width:1500px) 880px, 65vw"><img src="assets/takely-original-cart.png" width="1440" height="1024" loading="lazy" decoding="async" alt="Корзина Takely: состав заказа, даты аренды и итоговая стоимость"></picture>
+</a>
+<figcaption>Корзина · десктопная версия</figcaption>
+</figure>
+<figure class="takely-motion takely-motion--cover" aria-label="Путь пользователя в мобильной версии Takely">
+<div class="takely-motion-frame" data-takely-motion>
+<img data-motion-poster src="assets/takely-motion/poster.png" width="1272" height="2634" loading="lazy" decoding="async" alt="">
+<iframe src="assets/takely-motion/player.html" width="424" height="878" loading="lazy" title="Путь пользователя Takely на iPhone: каталог, товар, регистрация, корзина, заявка и заказы"></iframe>
+</div>
+<figcaption>Каталог → товар → регистрация → корзина → заявка → заказы.</figcaption>
+</figure>
+</div>
 </section>
 <div class="case-layout container">
 <nav class="contents" aria-label="Содержание кейса"><a class="is-active" href="#context" aria-current="location">Задача и роль</a><a href="#decisions">Решения</a><a href="#screens">Экраны</a><a href="#result">Итог</a></nav>
@@ -27,7 +43,7 @@
 <h2 id="context-title">От общего брифа к MVP</h2>
 <p>Заказчик пришёл с идеей онлайн-проката без подробного брифа. Я помогла превратить её в понятный продукт: уточнила работу сервиса, продумала сценарии клиента и склада, согласовала объём MVP.</p>
 <p><strong>Моя роль:</strong> самостоятельно вела общение с заказчиком и разработчиком — задавала вопросы, предлагала варианты, объясняла компромиссы и помогала согласовывать решения. Спроектировала интерфейсы и UI-kit, передала макеты и оставалась на связи на протяжении разработки: уточняла нюансы и проверяла реализацию. Код писал другой разработчик.</p>
-<p class="small muted">В кейсе разделены коммерческая работа и переработка спустя год. В переработке сопоставлены опубликованные правила <a href="https://narnia-dress.com/" target="_blank" rel="noopener noreferrer">Narnia Dress</a>, <a href="https://storydress.ru/rental-terms/" target="_blank" rel="noopener noreferrer">Story Dress</a>, <a href="https://waf.unirenter.ru/" target="_blank" rel="noopener noreferrer">UniRenter</a> и <a href="https://moskostumer.ru/oferta/" target="_blank" rel="noopener noreferrer">МосКостюмер</a>. Карта пути и модель работы склада связывают решения между собой; интервью и пользовательские тесты пока запланированы.</p>
+<p class="small muted">При проектировании сопоставила опубликованные правила <a href="https://narnia-dress.com/" target="_blank" rel="noopener noreferrer">Narnia Dress</a>, <a href="https://storydress.ru/rental-terms/" target="_blank" rel="noopener noreferrer">Story Dress</a>, <a href="https://waf.unirenter.ru/" target="_blank" rel="noopener noreferrer">UniRenter</a> и <a href="https://moskostumer.ru/oferta/" target="_blank" rel="noopener noreferrer">МосКостюмер</a>. Карта пути и модель работы склада связывают решения между собой; интервью и пользовательские тесты пока запланированы.</p>
 </section>
 <section class="case-section" id="decisions" aria-labelledby="decisions-title">
 <h2 id="decisions-title">Три ключевых решения</h2>
@@ -44,16 +60,15 @@
 <p>Если платье не подошло, сумку можно взять. Если сумку вернули, платье остаётся в аренде до своей даты. Сотрудник принимает каждую вещь на складе, осматривает её вместе с клиентом до химчистки и возвращает в доступные после чистки и проверки.</p>
 </article>
 <div class="case-note"><p><strong>Как считается наличие:</strong> до выбора размера — свободные экземпляры всех размеров, после выбора — только нужного. Ноль означает отсутствие. Для периода проверяется один и тот же экземпляр на все дни. Заявка не блокирует остаток; бронь подтверждает сотрудник.</p></div>
-<p class="small muted"><strong>Компромисс MVP:</strong> звонки и проверка наличия добавляют ручную работу. Отказ от залога снижает платёж при получении, сохраняя риск взыскания ущерба. Влияние на конверсию ещё нужно проверить. <a href="@@FIGMA@@" target="_blank" rel="noopener noreferrer">Исходные макеты в Figma ↗</a></p>
+<p class="small muted"><strong>Компромисс MVP:</strong> звонки и проверка наличия добавляют ручную работу. Отказ от залога снижает платёж при получении, сохраняя риск взыскания ущерба. Влияние на конверсию ещё нужно проверить. <a href="@@FIGMA@@" target="_blank" rel="noopener noreferrer">Макеты в Figma ↗</a></p>
 </section>
 <section class="case-section" id="screens" aria-labelledby="screens-title">
-<h2 id="screens-title">Ключевые экраны</h2>
-<p class="gallery-intro">Здесь — мой исходный дизайн и UI-kit до последующей переработки. Нажмите на экран, чтобы рассмотреть детали.</p>
+<h2 id="screens-title">Десктопная версия</h2>
 @@SCREEN_GALLERY@@
 </section>
 <section class="case-section" id="result" aria-labelledby="result-title">
 <h2 id="result-title">Итог и следующий шаг</h2>
-<p id="system">Коммерческий продукт завершён и передан заказчику, но запуск не состоялся. В последующей переработке добавлены мобильная версия, статусы позиций, учёт экземпляров и состояния. Интервью и тесты с пользователями ещё не проводились.</p>
+<p id="system">Продукт завершён и передан заказчику, но запуск не состоялся. Спроектированы десктопная и мобильная версии, статусы позиций, учёт экземпляров и состояния. Интервью и тесты с пользователями ещё не проводились.</p>
 <p>Далее — проверить календарь, частичную выдачу и возврат с клиентами и сотрудником. Подготовлены вопросы интервью, задания теста и план измерения подтверждений и выдач.</p>
 <div class="case-bottom"><a class="btn" href="index.html#work">@@BACK@@ К проектам</a></div>
 </section>
