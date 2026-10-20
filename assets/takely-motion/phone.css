@@ -32,7 +32,7 @@
  .case-showcase .takely-motion-frame { width: 100%; }
  .case-cart-cover { display: block; min-width: 0; width: min(100%, calc(var(--showcase-height) * 1440 / 1024)); justify-self: start; }
  .case-cart-cover .image-link { width: 100%; aspect-ratio: 1440 / 1024; margin: 0; }
- .case-cart-cover picture, .case-cart-cover img { width: 100%; height: 100%; }
- .case-cart-cover img { object-fit: contain; }
+ .case-cart-cover picture { width: 100%; height: 100%; overflow: hidden; }
+ .case-cart-cover img { width: 100%; height: auto; object-fit: contain; object-position: center top; }
  .case-cart-cover figcaption { margin-top: 16px; text-align: center; color: var(--muted, #625c61); font-size: 14px; line-height: 1.6; }
 }

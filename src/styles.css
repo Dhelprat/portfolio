@@ -20,10 +20,11 @@
 /* Keep short last lines and function words attached across responsive layouts. */
 p,li,dd,figcaption{text-wrap:pretty}h1,h2,h3{text-wrap:balance}.contact-line{display:block;text-wrap:balance}
 
-/* Desktop screens stay in two columns; each complete screen opens at full size. */
+/* Preview from the top, cropping overflow below; full screens open in the viewer. */
 .screens-gallery--desktop{grid-template-columns:repeat(2,minmax(0,1fr));gap:32px 24px;align-items:start}
-.screens-gallery--desktop .image-link{aspect-ratio:4/3;align-items:center;background:#fff}
-.screens-gallery--desktop .image-link img{width:100%;height:100%;object-fit:contain}
+.screens-gallery--desktop .image-link{aspect-ratio:4/3;display:block;background:#fff}
+.screens-gallery--desktop .image-link img{width:100%;height:auto;object-fit:contain;object-position:center top}
+.screens-gallery--desktop a[href$="takely-original-account.png"] picture{height:auto;aspect-ratio:1440/1016;overflow:hidden}
 .screen-card figcaption{margin-top:12px;line-height:1.45}
 .screen-name{display:block;font-size:16px;font-weight:600;letter-spacing:-.015em}
 .screen-card figcaption p{margin-top:6px;font-size:14px;line-height:1.6;color:var(--muted)}
